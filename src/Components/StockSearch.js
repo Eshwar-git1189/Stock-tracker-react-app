@@ -1,4 +1,3 @@
-// src/components/StockSearch.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -7,8 +6,9 @@ const StockSearch = ({ onSearch }) => {
   const [suggestions, setSuggestions] = useState([]);
   const [allSymbols, setAllSymbols] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState("");
 
-  const API_KEY = "d1hp0u1r01qsvr2bhi10d1hp0u1r01qsvr2bhi1g";
+  const API_KEY = process.env.REACT_APP_FINNHUB_KEY;
 
   useEffect(() => {
     const fetchSymbols = async () => {
@@ -22,17 +22,15 @@ const StockSearch = ({ onSearch }) => {
       }
       setLoading(false);
     };
-
     fetchSymbols();
   }, []);
 
   const handleInputChange = (e) => {
     const value = e.target.value.toUpperCase();
     setQuery(value);
-    if(e.query===""){
-        <div>Stock not found</div>
-    }
-    if (value.length > 1) {
+    setErrorMsg(""); // clear error
+
+    if (value.length > 0) {
       const matches = allSymbols
         .filter(
           (sym) =>
@@ -43,24 +41,28 @@ const StockSearch = ({ onSearch }) => {
       setSuggestions(matches);
     } else {
       setSuggestions([]);
-      
     }
   };
 
   const handleSelect = (symbol) => {
     setQuery(symbol);
     setSuggestions([]);
-    onSearch(symbol); // Trigger search in parent
+    setErrorMsg(""); // clear error
+    onSearch(symbol);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSearch(query.trim());
+    if (query.trim() === "") {
+      setErrorMsg("⚠️ Please enter a stock symbol.");
+      return;
+    }
     setSuggestions([]);
+    setErrorMsg("");
+    onSearch(query.trim());
   };
 
   // Spinner styles
-
   const spinnerStyle = {
     display: "flex",
     justifyContent: "center",
@@ -78,18 +80,22 @@ const StockSearch = ({ onSearch }) => {
   };
 
   // Add keyframes
-  const styleSheet = document.styleSheets[0];
-  if (styleSheet) {
-    styleSheet.insertRule(
-      `
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+  useEffect(() => {
+    const styleSheet = document.styleSheets[0];
+    if (styleSheet) {
+      try {
+        styleSheet.insertRule(
+          `@keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }`,
+          styleSheet.cssRules.length
+        );
+      } catch (error) {
+        // ignore duplicate rule error
+      }
     }
-  `,
-      styleSheet.cssRules.length
-    );
-  }
+  }, []);
 
   return (
     <div style={{ marginBottom: "30px" }}>
@@ -98,7 +104,7 @@ const StockSearch = ({ onSearch }) => {
           <div style={spinnerCircle}></div>
         </div>
       ) : (
-        <>
+        <div>
           <form onSubmit={handleSubmit}>
             <input
               type="text"
@@ -128,6 +134,13 @@ const StockSearch = ({ onSearch }) => {
               Search
             </button>
           </form>
+
+          {/* Error Message */}
+          {errorMsg && (
+            <p style={{ color: "red", textAlign: "center", marginTop: "10px" }}>
+              {errorMsg}
+            </p>
+          )}
 
           {/* Suggestions */}
           {suggestions.length > 0 && (
@@ -159,8 +172,9 @@ const StockSearch = ({ onSearch }) => {
               ))}
             </ul>
           )}
-        </>
+        </div>
       )}
+      
     </div>
   );
 };

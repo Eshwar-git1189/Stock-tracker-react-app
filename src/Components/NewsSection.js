@@ -9,7 +9,7 @@ const NewsSection = ({ symbol }) => {
     if (!symbol) return;
 
     const fetchNews = async () => {
-      const API_KEY = "d1hp0u1r01qsvr2bhi10d1hp0u1r01qsvr2bhi1g";
+      const API_KEY = process.env.REACT_APP_FINNHUB_KEY;
       try {
         const res = await axios.get(
           `https://finnhub.io/api/v1/company-news?symbol=${symbol}&from=2024-01-01&to=2024-12-31&token=${API_KEY}`

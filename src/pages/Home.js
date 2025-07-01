@@ -4,9 +4,10 @@ import StockCard from "../Components/StockCard";
 import NewsSection from "../Components/NewsSection";
 
 const Home = ({ symbol, data, onSearch }) => {
+
   return (
     <div>
-      <StockSearch onSearch={onSearch} style />
+      <StockSearch onSearch={onSearch} />
       {data && <StockCard symbol={symbol} data={data} />}
       {symbol && <NewsSection symbol={symbol} />}
     </div>

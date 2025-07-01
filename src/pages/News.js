@@ -9,7 +9,8 @@ const News = () => {
   const [loading, setLoading] = useState(false);
   const [keyword, setKeyword] = useState("");
 
-  const API_KEY = "d1hp0u1r01qsvr2bhi10d1hp0u1r01qsvr2bhi1g";
+  const API_KEY = process.env.REACT_APP_FINNHUB_KEY;
+  //console.log("API_KEY:", API_KEY); // Should print your key in the console
 
   const fetchNews = async (selectedCategory) => {
     setLoading(true);
@@ -45,7 +46,7 @@ const News = () => {
         style={{
           padding: "10px",
           marginRight: "10px",
-          fontSize: "16px"
+          fontSize: "16px",
         }}
       >
         <option value="general">General</option>
@@ -65,7 +66,7 @@ const News = () => {
           padding: "10px",
           fontSize: "16px",
           width: "300px",
-          marginBottom: "20px"
+          marginBottom: "20px",
         }}
       />
 
@@ -85,13 +86,20 @@ const News = () => {
               maxWidth: "600px",
               borderRadius: "10px",
               backgroundColor: "#f9f9f9",
-              textAlign: "left"
+              textAlign: "left",
             }}
           >
-            <a href={article.url} target="_blank" rel="noreferrer" style={{ fontSize: "18px", fontWeight: "bold" }}>
+            <a
+              href={article.url}
+              target="_blank"
+              rel="noreferrer"
+              style={{ fontSize: "18px", fontWeight: "bold" }}
+            >
               {article.headline}
             </a>
-            <p style={{ fontSize: "14px", marginBottom: "5px" }}>{article.summary}</p>
+            <p style={{ fontSize: "14px", marginBottom: "5px" }}>
+              {article.summary}
+            </p>
 
             {/* Show Date */}
             <p style={{ fontSize: "12px", color: "#666" }}>

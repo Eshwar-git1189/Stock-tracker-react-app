@@ -1,13 +1,61 @@
-// src/pages/Watchlist.js
-import React from "react";
+// src/pages/Wishlist.js
+import React, { useEffect, useState } from "react";
 
-const Watchlist = () => (
-  <div style={{ textAlign: "center", padding: "30px" }}>
-    <h2>Watchlist (Coming Soon)</h2>
-    <p>You'll be able to save stocks to watch later.</p>
-  </div>
-);
+const Wishlist = () => {
+  const [wishlist, setWishlist] = useState([]);
 
-export default Watchlist;
-// This component is a placeholder for the watchlist feature.
-// It can be expanded later to include functionality for saving and viewing stocks.
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem("wishlist")) || [];
+    setWishlist(stored);
+  }, []);
+
+  const removeFromWishlist = (symbol) => {
+    const updated = wishlist.filter((item) => item !== symbol);
+    setWishlist(updated);
+    localStorage.setItem("wishlist", JSON.stringify(updated));
+  };
+
+  return (
+    <div style={{ textAlign: "center", padding: "30px" }}>
+      <h2>📌 Wishlist</h2>
+      {wishlist.length === 0 ? (
+        <p>No stocks in wishlist.</p>
+      ) : (
+        <ul style={{ listStyle: "none", padding: 0 }}>
+          {wishlist.map((symbol, i) => (
+            <li
+              key={i}
+              style={{
+                margin: "10px",
+                padding: "10px",
+                border: "1px solid #ddd",
+                borderRadius: "8px",
+                display: "flex",
+                justifyContent: "space-between",
+                maxWidth: "300px",
+                marginInline: "auto",
+              }}
+            >
+              <span>{symbol}</span>
+              <button
+                onClick={() => removeFromWishlist(symbol)}
+                style={{
+                  background: "red",
+                  color: "white",
+                  border: "none",
+                  padding: "5px 10px",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                }}
+              >
+                ❌ Remove
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+export default Wishlist;

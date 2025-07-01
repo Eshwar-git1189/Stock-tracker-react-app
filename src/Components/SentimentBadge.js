@@ -5,28 +5,28 @@ const getSentimentColor = (text) => {
   const negativeWords = ["drop", "loss", "fall", "decline", "plunge", "miss"];
 
   const lower = text.toLowerCase();
-  if (positiveWords.some(word => lower.includes(word))) return "green";
-  if (negativeWords.some(word => lower.includes(word))) return "red";
+  if (positiveWords.some((word) => lower.includes(word))) return "green";
+  if (negativeWords.some((word) => lower.includes(word))) return "red";
   return "gray";
 };
 
 const SentimentBadge = ({ text }) => {
   const color = getSentimentColor(text);
   const label =
-    color === "green" ? "Positive" :
-    color === "red" ? "Negative" :
-    "Neutral";
+    color === "green" ? "Positive" : color === "red" ? "Negative" : "Neutral";
 
   return (
-    <span style={{
-      backgroundColor: color,
-      color: "#fff",
-      padding: "4px 10px",
-      borderRadius: "15px",
-      marginTop: "8px",
-      display: "inline-block",
-      fontSize: "12px"
-    }}>
+    <span
+      style={{
+        backgroundColor: color,
+        color: "#fff",
+        padding: "4px 10px",
+        borderRadius: "15px",
+        marginTop: "8px",
+        display: "inline-block",
+        fontSize: "12px",
+      }}
+    >
       {label}
     </span>
   );

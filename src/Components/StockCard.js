@@ -14,7 +14,7 @@ const addToWishlist = (symbol) => {
 
 const StockCard = ({ symbol, data }) => {
   return (
-    <div
+    <div className="stock-card"
       style={{
         border: "1px solid #ccc",
         padding: "20px",

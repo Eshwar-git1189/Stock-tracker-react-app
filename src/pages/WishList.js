@@ -16,7 +16,19 @@ const Wishlist = () => {
   };
 
   return (
-    <div style={{ textAlign: "center", padding: "30px" }}>
+    <div
+      style={{
+        textAlign: "center",
+        padding: "30px",
+        maxWidth: "600px",
+        margin: "0 auto",
+        backgroundColor: "#3498db",
+        borderRadius: "10px",
+        boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+        fontFamily: "Arial, sans-serif",
+
+      }}
+    >
       <h2>📌 Wishlist</h2>
       {wishlist.length === 0 ? (
         <p>No stocks in wishlist.</p>

@@ -104,19 +104,19 @@ const StockSearch = ({ onSearch }) => {
           <div style={spinnerCircle}></div>
         </div>
       ) : (
-        <div>
+        <div className="search-box">
           <form onSubmit={handleSubmit}>
             <input
               type="text"
               value={query}
               onChange={handleInputChange}
               placeholder="Search stock (e.g. AAPL, Tesla)"
-              style={{
-                padding: "10px",
-                width: "300px",
-                fontSize: "16px",
-                marginBottom: "10px",
-              }}
+              // style={{
+              //   padding: "10px",
+              //   width: "300px",
+              //   fontSize: "16px",
+              //   marginBottom: "10px",
+              // }}
             />
             <button
               type="submit"
@@ -143,19 +143,10 @@ const StockSearch = ({ onSearch }) => {
           )}
 
           {/* Suggestions */}
+          <div className="suggestions">
           {suggestions.length > 0 && (
             <ul
-              style={{
-                listStyle: "none",
-                padding: 0,
-                marginTop: "5px",
-                textAlign: "left",
-                maxWidth: "300px",
-                margin: "0 auto",
-                backgroundColor: "#fff",
-                boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
-                borderRadius: "5px",
-              }}
+              
             >
               {suggestions.map((item, index) => (
                 <li
@@ -165,6 +156,11 @@ const StockSearch = ({ onSearch }) => {
                     padding: "10px",
                     cursor: "pointer",
                     borderBottom: "1px solid #eee",
+                    backgroundColor: index % 2 === 0 ? "#f9f9f9" : "#fff",
+                    transition: "background-color 0.2s",
+                    borderRadius: "5px",
+                    margin: "5px 0",
+
                   }}
                 >
                   <strong>{item.symbol}</strong> — {item.description}
@@ -172,6 +168,7 @@ const StockSearch = ({ onSearch }) => {
               ))}
             </ul>
           )}
+          </div>
         </div>
       )}
       

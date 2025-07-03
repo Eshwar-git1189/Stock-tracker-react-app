@@ -25,7 +25,7 @@ const NewsSection = ({ symbol }) => {
 
   return (
     <div style={{ marginTop: "30px" }}>
-      <h3>📰 Latest News for {symbol}</h3>
+      <h3 className="news-heading">📰 Latest News for {symbol}</h3>
       {articles.map((article, index) => (
         <div key={index} style={{
           border: "1px solid #ddd",

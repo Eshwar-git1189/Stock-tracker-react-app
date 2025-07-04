@@ -23,7 +23,7 @@ const StockSearch = ({ onSearch }) => {
       setLoading(false);
     };
     fetchSymbols();
-  }, []);
+  }, [API_KEY]);
 
   const handleInputChange = (e) => {
     const value = e.target.value.toUpperCase();
@@ -144,34 +144,30 @@ const StockSearch = ({ onSearch }) => {
 
           {/* Suggestions */}
           <div className="suggestions">
-          {suggestions.length > 0 && (
-            <ul
-              
-            >
-              {suggestions.map((item, index) => (
-                <li
-                  key={index}
-                  onClick={() => handleSelect(item.symbol)}
-                  style={{
-                    padding: "10px",
-                    cursor: "pointer",
-                    borderBottom: "1px solid #eee",
-                    backgroundColor: index % 2 === 0 ? "#f9f9f9" : "#fff",
-                    transition: "background-color 0.2s",
-                    borderRadius: "5px",
-                    margin: "5px 0",
-
-                  }}
-                >
-                  <strong>{item.symbol}</strong> — {item.description}
-                </li>
-              ))}
-            </ul>
-          )}
+            {suggestions.length > 0 && (
+              <ul>
+                {suggestions.map((item, index) => (
+                  <li
+                    key={index}
+                    onClick={() => handleSelect(item.symbol)}
+                    style={{
+                      padding: "10px",
+                      cursor: "pointer",
+                      borderBottom: "1px solid #eee",
+                      backgroundColor: index % 2 === 0 ? "#f9f9f9" : "#fff",
+                      transition: "background-color 0.2s",
+                      borderRadius: "5px",
+                      margin: "5px 0",
+                    }}
+                  >
+                    <strong>{item.symbol}</strong> — {item.description}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       )}
-      
     </div>
   );
 };

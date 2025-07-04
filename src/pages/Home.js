@@ -7,6 +7,7 @@ const Home = ({ symbol, data, onSearch }) => {
 
   return (
     <div>
+      <h1 style={{ textAlign: "center" }}>Search for Stocks</h1>
       <StockSearch onSearch={onSearch} />
       {data && <StockCard symbol={symbol} data={data} />}
       {symbol && <NewsSection symbol={symbol} />}

@@ -1,5 +1,5 @@
 // src/pages/News.js
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import SentimentBadge from "../Components/SentimentBadge";
 
@@ -12,22 +12,25 @@ const News = () => {
   const API_KEY = process.env.REACT_APP_FINNHUB_KEY;
   //console.log("API_KEY:", API_KEY); // Should print your key in the console
 
-  const fetchNews = async (selectedCategory) => {
-    setLoading(true);
-    try {
-      const res = await axios.get(
-        `https://finnhub.io/api/v1/news?category=${selectedCategory}&token=${API_KEY}`
-      );
-      setNewsList(res.data.slice(0, 30)); // fetch more to allow keyword filtering
-    } catch (error) {
-      console.error("Error fetching news:", error);
-    }
-    setLoading(false);
-  };
+  const fetchNews = useCallback(
+    async (selectedCategory) => {
+      setLoading(true);
+      try {
+        const res = await axios.get(
+          `https://finnhub.io/api/v1/news?category=${selectedCategory}&token=${API_KEY}`
+        );
+        setNewsList(res.data.slice(0, 30)); // fetch more to allow keyword filtering
+      } catch (error) {
+        console.error("Error fetching news:", error);
+      }
+      setLoading(false);
+    },
+    [API_KEY]
+  );
 
   useEffect(() => {
     fetchNews(category);
-  }, [category]);
+  }, [category, fetchNews]);
 
   const filteredNews = newsList.filter(
     (article) =>

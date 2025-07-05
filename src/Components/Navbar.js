@@ -1,8 +1,10 @@
 // src/components/Navbar.js
 
 import { Link } from "react-router-dom";
+//import React, { useState } from "react";
 
 const Navbar = ({ onToggleTheme, theme }) => {
+  //const [showDropdown, setShowDropdown] = useState(false);
   return (
     <nav
       style={{
@@ -37,6 +39,28 @@ const Navbar = ({ onToggleTheme, theme }) => {
         >
           About
         </Link>
+        {/* <li
+          className="dropdown"
+          onMouseEnter={() => setShowDropdown(true)}
+          onMouseLeave={() => setShowDropdown(false)}
+        >
+          <span style={{ marginRight: "20px" }}>About</span>
+          {showDropdown && (
+            <ul
+              className="dropdown-menu"
+              style={{
+                listStyle: "none",
+                padding: 0,
+                margin: 0,
+                backgroundColor: theme === "dark" ? "#1c1c1c" : "#3498db",
+              }}
+            >
+              <li style={{ textDecoration: "none" }}>
+                <Link to="/about">About This App</Link>
+              </li>
+            </ul>
+          )}
+        </li> */}
         <Link
           to="/contact"
           style={{

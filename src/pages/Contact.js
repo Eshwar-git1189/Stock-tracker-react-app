@@ -29,6 +29,8 @@ const Contact = () => {
           value={form.name}
           onChange={handleChange}
           required
+          pattern="[A-Za-z\s]+"
+          title="Name should contain only alphabets"
           style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
         />
         <input

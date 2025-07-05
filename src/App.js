@@ -13,7 +13,6 @@ function App() {
   const [symbol, setSymbol] = useState("");
   const [data, setData] = useState(null);
   const [theme, setTheme] = useState("light");
-
   const handleSearch = async (symbol) => {
     const API_KEY = process.env.REACT_APP_FINNHUB_KEY;
     try {

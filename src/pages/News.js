@@ -42,7 +42,6 @@ const News = () => {
     <div style={{ textAlign: "center", padding: "30px" }}>
       <h2>📰 Market News</h2>
 
-      {/* Dropdown Category Selector */}
       <select
         value={category}
         onChange={(e) => setCategory(e.target.value)}
@@ -59,7 +58,6 @@ const News = () => {
         <option value="economy">Economy</option>
       </select>
 
-      {/* Keyword Search Input */}
       <input
         type="text"
         placeholder="Search headlines or summaries..."
@@ -73,7 +71,6 @@ const News = () => {
         }}
       />
 
-      {/* Loader */}
       {loading ? (
         <div style={{ marginTop: "40px" }}>
           <p>🔄 Loading news...</p>
